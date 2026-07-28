@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MuthuVelan S — Software Engineer</title>
+<meta name="description" content="MuthuVelan S — Software Engineer. Telecom billing, backend & QA experience, React/Java full stack projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0F14;
+    --bg-panel: #0F171E;
+    --bg-panel-hi: #131D26;
+    --border: #1E2A33;
+    --border-hi: #2C3D49;
+    --text: #E6ECF1;
+    --text-dim: #8B98A5;
+    --text-faint: #566270;
+    --signal: #45D6B0;
+    --signal-dim: #2A8C71;
+    --amber: #F2B155;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --max: 920px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle scanline / grid texture on bg */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(10,15,20,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+  }
+  .nav-logo{
+    font-family:var(--font-mono); font-size:0.85rem; color:var(--signal);
+    white-space:nowrap;
+  }
+  .nav-logo .path{color:var(--text-dim);}
+  .nav-links{display:flex; gap:22px; font-family:var(--font-mono); font-size:0.82rem;}
+  .nav-links a{color:var(--text-dim); transition:color 0.15s ease;}
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--signal);}
+  .nav-links a::before{content:"./"; color:var(--text-faint);}
+  @media (max-width:640px){
+    .nav-links{gap:14px; font-size:0.72rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:120px 0 60px;
+  }
+  .status-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--signal);
+    border:1px solid var(--signal-dim); background:rgba(69,214,176,0.06);
+    padding:5px 12px; border-radius:3px;
+    margin-bottom:28px;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--signal);
+    box-shadow:0 0 8px var(--signal);
+    animation:pulse 2s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+
+  .terminal{
+    font-family:var(--font-mono);
+    font-size:clamp(0.78rem, 1.4vw, 0.92rem);
+    color:var(--text-dim);
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:18px 20px;
+    max-width:560px;
+    min-height:132px;
+    margin-bottom:36px;
+  }
+  .terminal .line{margin-bottom:6px; white-space:pre-wrap;}
+  .terminal .prompt{color:var(--signal);}
+  .terminal .out{color:var(--text);}
+  .cursor{
+    display:inline-block; width:7px; height:1em; background:var(--signal);
+    vertical-align:text-bottom; margin-left:2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{opacity:0;} }
+
+  h1.name{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.05; letter-spacing:-0.02em;
+    margin-bottom:10px;
+  }
+  .role{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(1.05rem, 2.2vw, 1.35rem);
+    color:var(--text-dim);
+    margin-bottom:28px;
+  }
+  .role .accent{color:var(--amber);}
+
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono); font-size:0.85rem;
+    padding:11px 20px; border-radius:4px;
+    border:1px solid var(--border-hi);
+    transition:all 0.15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--signal); color:#06120E; border-color:var(--signal); font-weight:600;}
+  .btn-primary:hover{background:#5EE5C4;}
+  .btn-ghost{color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--signal); color:var(--signal);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:90px 0; border-top:1px solid var(--border); position:relative; z-index:1;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:44px;}
+  .sec-tag{font-family:var(--font-mono); font-size:0.78rem; color:var(--signal); white-space:nowrap;}
+  .sec-title{font-family:var(--font-display); font-weight:600; font-size:clamp(1.4rem,3vw,1.9rem);}
+  .sec-rule{flex:1; height:1px; background:var(--border-hi);}
+
+  .lede{color:var(--text-dim); max-width:640px; margin-bottom:40px; font-size:1.02rem;}
+
+  /* ---------- STAT STRIP ---------- */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:40px;}
+  .stat{background:var(--bg-panel); padding:22px 18px;}
+  .stat-val{font-family:var(--font-display); font-weight:700; font-size:1.7rem; color:var(--signal);}
+  .stat-label{font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim); margin-top:4px; text-transform:uppercase; letter-spacing:0.04em;}
+  @media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- EXPERIENCE / LOG ---------- */
+  .log-entry{
+    display:grid; grid-template-columns:150px 1fr; gap:24px;
+    padding:24px 0; border-top:1px solid var(--border);
+  }
+  .log-entry:first-child{border-top:none;}
+  .log-meta{font-family:var(--font-mono); font-size:0.78rem; color:var(--text-faint);}
+  .log-meta .range{color:var(--text-dim); display:block; margin-bottom:6px;}
+  .log-role{font-family:var(--font-display); font-weight:600; font-size:1.15rem; margin-bottom:2px;}
+  .log-org{color:var(--signal); font-family:var(--font-mono); font-size:0.85rem; margin-bottom:14px;}
+  .log-list li{position:relative; padding-left:18px; margin-bottom:9px; color:var(--text-dim); font-size:0.94rem;}
+  .log-list li::before{content:"›"; position:absolute; left:0; color:var(--signal);}
+  @media (max-width:640px){
+    .log-entry{grid-template-columns:1fr; gap:8px;}
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .grid-proj{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:720px){ .grid-proj{grid-template-columns:1fr;} }
+  .card{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:6px;
+    padding:22px; transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover{border-color:var(--signal-dim); transform:translateY(-2px);}
+  .card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .card-title{font-family:var(--font-display); font-weight:600; font-size:1.05rem;}
+  .card-status{display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:0.68rem; color:var(--signal); text-transform:uppercase; letter-spacing:0.05em;}
+  .card-desc{color:var(--text-dim); font-size:0.9rem; margin-bottom:16px;}
+  .tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--text-dim);
+    border:1px solid var(--border-hi); padding:3px 8px; border-radius:3px;
+  }
+  .card-full{grid-column:1 / -1;}
+
+  /* ---------- SKILLS (config block) ---------- */
+  .config{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:6px;
+    padding:26px 28px; font-family:var(--font-mono); font-size:0.85rem; overflow-x:auto;
+  }
+  .config .k{color:var(--amber);}
+  .config .s{color:var(--text-faint);}
+  .config .v{color:var(--text);}
+  .config .c{color:var(--text-faint); font-style:italic;}
+  .config-line{margin-bottom:4px; white-space:pre-wrap;}
+  .config-group{margin-bottom:2px;}
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .split{display:grid; grid-template-columns:1.3fr 1fr; gap:48px;}
+  @media (max-width:760px){ .split{grid-template-columns:1fr; gap:36px;} }
+  .edu-item{padding:16px 0; border-top:1px solid var(--border);}
+  .edu-item:first-child{border-top:none; padding-top:0;}
+  .edu-degree{font-weight:600; font-family:var(--font-display); font-size:1rem;}
+  .edu-school{color:var(--text-dim); font-size:0.88rem; margin-top:2px;}
+  .edu-meta{font-family:var(--font-mono); font-size:0.76rem; color:var(--signal); margin-top:6px;}
+
+  .achieve li{position:relative; padding-left:20px; margin-bottom:14px; color:var(--text-dim); font-size:0.92rem;}
+  .achieve li::before{content:"✓"; position:absolute; left:0; color:var(--signal);}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact-panel{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:8px;
+    padding:48px 40px; text-align:center;
+  }
+  .contact-panel h2{font-family:var(--font-display); font-size:clamp(1.5rem,3.4vw,2.1rem); margin-bottom:12px;}
+  .contact-panel p{color:var(--text-dim); margin-bottom:30px; max-width:480px; margin-left:auto; margin-right:auto;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .contact-link{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:0.85rem;
+    border:1px solid var(--border-hi); padding:10px 16px; border-radius:5px;
+    transition:all 0.15s ease;
+  }
+  .contact-link:hover{border-color:var(--signal); color:var(--signal);}
+  .contact-link svg{width:15px; height:15px; flex-shrink:0;}
+
+  footer{padding:32px 0 48px; text-align:center;}
+  footer p{font-family:var(--font-mono); font-size:0.74rem; color:var(--text-faint);}
+
+  .copy-toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--signal); color:#06120E; font-family:var(--font-mono); font-size:0.8rem;
+    padding:10px 18px; border-radius:5px; opacity:0; pointer-events:none;
+    transition:all 0.25s ease; z-index:100;
+  }
+  .copy-toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  :focus-visible{outline:2px solid var(--signal); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">muthu<span class="path">@portfolio</span>:~$</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">exp</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none; padding-top:120px;">
+    <div class="status-badge"><span class="dot"></span> incoming — TCS Assistant System Engineer (Trainee), Chennai</div>
+
+    <div class="terminal" id="terminal" aria-live="polite"></div>
+
+    <h1 class="name">MuthuVelan S</h1>
+    <p class="role">Software Engineer <span class="accent">·</span> Backend, React &amp; QA</p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-head"><span class="sec-tag">01</span><span class="sec-title">about</span><span class="sec-rule"></span></div>
+    <p class="lede">
+      Software engineer with 8 months of hands-on experience in the telecom billing domain at SunTec Business Solutions —
+      working across Java backend services, Kafka and NiFi data pipelines, and MySQL-driven data validation.
+      Comfortable moving between backend systems and React front ends, with a QA instinct picked up from performance
+      testing and production issue analysis in an Agile team. Based in Thiruvananthapuram, Kerala, and a 2026 CSE
+      graduate from Dr. Mahalingam College of Engineering and Technology, Pollachi.
+    </p>
+    <div class="stats">
+      <div class="stat"><div class="stat-val">8</div><div class="stat-label">months, backend &amp; QA</div></div>
+      <div class="stat"><div class="stat-val">5</div><div class="stat-label">shipped projects</div></div>
+      <div class="stat"><div class="stat-val">8.03</div><div class="stat-label">CGPA / 10</div></div>
+      <div class="stat"><div class="stat-val">2026</div><div class="stat-label">graduate, CSE</div></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">experience</span><span class="sec-rule"></span></div>
+
+    <div class="log-entry">
+      <div class="log-meta"><span class="range">Nov 2025 – Jun 2026</span>Thiruvananthapuram, KL</div>
+      <div>
+        <div class="log-role">Software Engineer Intern</div>
+        <div class="log-org">SunTec Business Solutions</div>
+        <ul class="log-list">
+          <li>Worked on Telecom Billing and Policy Management applications using Java and related technologies</li>
+          <li>Performed performance testing and analyzed application throughput using Apache Kafka, Apache NiFi, MySQL, and JMeter</li>
+          <li>Investigated and resolved production and testing issues by analyzing application logs, database records, and system behavior</li>
+          <li>Executed MySQL queries to validate application data and support issue investigation</li>
+          <li>Assisted in automation testing, backend data validation, and future transaction verification</li>
+          <li>Worked in a Linux environment to execute scripts, monitor application processes, and analyze server logs</li>
+          <li>Collaborated with developers, QA engineers, and senior team members in an Agile development environment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">projects</span><span class="sec-rule"></span></div>
+
+    <div class="grid-proj">
+      <div class="card card-full">
+        <div class="card-head">
+          <span class="card-title">Employee Management System</span>
+          <span class="card-status"><span class="dot"></span>Full Stack</span>
+        </div>
+        <p class="card-desc">
+          Full-stack app with JWT-based authentication and protected routes, RESTful APIs for CRUD operations on
+          employee records, plus search, pagination, and a responsive UI.
+        </p>
+        <div class="tags">
+          <span class="tag">React.js</span><span class="tag">Node.js</span><span class="tag">Express.js</span>
+          <span class="tag">MySQL</span><span class="tag">JWT</span><span class="tag">REST API</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Weather App</span>
+          <span class="card-status"><span class="dot"></span>Live API</span>
+        </div>
+        <p class="card-desc">Responsive React app showing real-time weather for any location via the OpenWeather API.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">OpenWeather API</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Currency Converter</span>
+          <span class="card-status"><span class="dot"></span>Live API</span>
+        </div>
+        <p class="card-desc">Real-time exchange rate conversion with careful API error handling and a clean, responsive UI.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">Exchange Rate API</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">To-Do List App</span>
+          <span class="card-status"><span class="dot"></span>UI / State</span>
+        </div>
+        <p class="card-desc">Add, delete, and complete tasks with React Hooks — focused on clean UI and state management.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">Hooks</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">BMI Calculator</span>
+          <span class="card-status"><span class="dot"></span>UI / Forms</span>
+        </div>
+        <p class="card-desc">Calculates Body Mass Index with instant feedback on health categories, built component-first.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">Forms</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head"><span class="sec-tag">04</span><span class="sec-title">skills</span><span class="sec-rule"></span></div>
+    <div class="config">
+      <div class="config-group config-line"><span class="c"># stack.yaml</span></div>
+      <div class="config-line"><span class="k">languages:</span><span class="s"> [</span><span class="v">Java, JavaScript</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">frontend:</span><span class="s"> [</span><span class="v">React.js, HTML5, CSS3</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">backend:</span><span class="s"> [</span><span class="v">Node.js, Express</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">databases:</span><span class="s"> [</span><span class="v">MySQL</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">data_pipeline:</span><span class="s"> [</span><span class="v">Apache Kafka, Apache NiFi</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">testing:</span><span class="s"> [</span><span class="v">Selenium, JMeter, Performance Testing</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">tools:</span><span class="s"> [</span><span class="v">VS Code, Postman, Eclipse IDE</span><span class="s">]</span></div>
+      <div class="config-line"><span class="k">practices:</span><span class="s"> [</span><span class="v">REST API, Agile, Problem Solving, Prompt Engineering</span><span class="s">]</span></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + ACHIEVEMENTS -->
+  <section id="education">
+    <div class="sec-head"><span class="sec-tag">05</span><span class="sec-title">education &amp; achievements</span><span class="sec-rule"></span></div>
+    <div class="split">
+      <div>
+        <div class="edu-item">
+          <div class="edu-degree">B.E., Computer Science &amp; Engineering</div>
+          <div class="edu-school">Dr. Mahalingam College of Engineering and Technology, Pollachi, Coimbatore</div>
+          <div class="edu-meta">2026 · CGPA 8.03</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">HSC</div>
+          <div class="edu-school">Sri Vaiyapuri Vidyalaya Matriculation Hr. Sec. School, Sankarankovil</div>
+          <div class="edu-meta">Mar 2021 · 91.10%</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">SSLC</div>
+          <div class="edu-school">Sri Vaiyapuri Vidyalaya Matriculation Hr. Sec. School, Sankarankovil</div>
+          <div class="edu-meta">Mar 2019 · 91%</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Soft Skills Certification</div>
+          <div class="edu-school">NPTEL Swayam</div>
+          <div class="edu-meta">Feb 2024</div>
+        </div>
+      </div>
+      <ul class="achieve">
+        <li>Completed an 8-month Software Engineer Internship at SunTec Business Solutions</li>
+        <li>Worked on Telecom Billing applications involving Apache Kafka, MongoDB, Cassandra, and Apache NiFi</li>
+        <li>Participated in performance testing and backend data validation activities</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sec-head"><span class="sec-tag">06</span><span class="sec-title">contact</span><span class="sec-rule"></span></div>
+    <div class="contact-panel">
+      <h2>Let's work together</h2>
+      <p>Open to full stack, backend, and QA/automation roles. Reach out — I usually reply within a day.</p>
+      <div class="contact-links">
+        <button class="contact-link" id="emailBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          muthuvelan0079@gmail.com
+        </button>
+        <a class="contact-link" href="tel:+919360226563">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +91 93602 26563
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/muthu-velan-42288b33b" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="https://github.com/muthuvelan0079" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>designed &amp; built by MuthuVelan S · last deployed <span id="deployDate"></span></p>
+</footer>
+
+<div class="copy-toast" id="toast">Email copied to clipboard</div>
+
+<script>
+  // ---- Terminal boot sequence ----
+  const lines = [
+    { p: '$ whoami', o: null },
+    { p: null, o: 'muthuvelan_s — software engineer' },
+    { p: '$ status --check', o: null },
+    { p: null, o: 'currently: intern @ SunTec (telecom billing, Java/Kafka/NiFi)' },
+    { p: null, o: 'incoming: TCS Assistant System Engineer (Trainee), Chennai' },
+  ];
+
+  const terminal = document.getElementById('terminal');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function typeLine(el, text, speed, cb){
+    let i = 0;
+    (function step(){
+      el.textContent = text.slice(0, i);
+      i++;
+      if (i <= text.length) {
+        setTimeout(step, speed);
+      } else if (cb) cb();
+    })();
+  }
+
+  function renderTerminal(){
+    if (prefersReduced) {
+      lines.forEach(l => {
+        const div = document.createElement('div');
+        div.className = 'line';
+        if (l.p){
+          div.innerHTML = '<span class="prompt">' + l.p + '</span>';
+        } else {
+          div.innerHTML = '<span class="out">' + l.o + '</span>';
+        }
+        terminal.appendChild(div);
+      });
+      const c = document.createElement('span');
+      c.className = 'cursor';
+      terminal.appendChild(c);
+      return;
+    }
+
+    let idx = 0;
+    function next(){
+      if (idx >= lines.length) {
+        const c = document.createElement('span');
+        c.className = 'cursor';
+        terminal.appendChild(c);
+        return;
+      }
+      const l = lines[idx];
+      const div = document.createElement('div');
+      div.className = 'line';
+      const span = document.createElement('span');
+      span.className = l.p ? 'prompt' : 'out';
+      div.appendChild(span);
+      terminal.appendChild(div);
+      typeLine(span, l.p || l.o, l.p ? 28 : 14, () => {
+        idx++;
+        setTimeout(next, l.p ? 200 : 380);
+      });
+    }
+    next();
+  }
+  renderTerminal();
+
+  // ---- Copy email to clipboard ----
+  const emailBtn = document.getElementById('emailBtn');
+  const toast = document.getElementById('toast');
+  emailBtn.addEventListener('click', async () => {
+    const email = 'muthuvelan0079@gmail.com';
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch (e) {
+      // clipboard API unavailable — fall back to mailto
+      window.location.href = 'mailto:' + email;
+      return;
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  });
+
+  // ---- Footer deploy date ----
+  document.getElementById('deployDate').textContent = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+</script>
+
+</body>
+</html>
