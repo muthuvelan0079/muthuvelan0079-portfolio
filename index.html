@@ -481,11 +481,14 @@
 <script>
   // ---- Terminal boot sequence ----
   const lines = [
-    { p: '$ whoami', o: null },
-    { p: null, o: 'muthuvelan_s — software engineer' },
-    { p: '$ status --check', o: null },
-    { p: null, o: 'currently: intern @ SunTec (telecom billing, Java/Kafka/NiFi)' }
-  ];
+  { p: '$ whoami', o: null },
+  { p: null, o: 'muthuvelan_s — software engineer' },
+  { p: '$ status --check', o: null },
+  {
+    p: null,
+    o: 'completed internship @ SunTec (Telecom Billing • Java • Kafka • Apache NiFi)'
+  }
+];
 
   const terminal = document.getElementById('terminal');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
